@@ -29,6 +29,65 @@ public class GildedRoseTest {
 
 
 	@Test
+	public void testBackstagePassesShouldIncrease3WhenSellINLessThan6() {
+
+		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10);
+
+		gildedRose.increaseTheQualityBasedOnItem(item);
+
+		assertEquals(13, item.getQuality());
+	}
+
+	@Test
+	public void testBackstagePassesShouldIncrease2WhenSellINLessThan11() {
+
+		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10);
+
+		gildedRose.increaseTheQualityBasedOnItem(item);
+
+		assertEquals(12, item.getQuality());
+	}
+
+	@Test
+	public void testBackstagePassesShouldIncrease1WhenSellInMoreThan10() {
+
+		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10);
+
+		gildedRose.increaseTheQualityBasedOnItem(item);
+
+		assertEquals(11, item.getQuality());
+	}
+
+	@Test
+	public void testAgedBrieShouldIncreaseOnly1() {
+
+		Item item = new Item("Aged Brie", 11, 10);
+
+		gildedRose.increaseTheQualityBasedOnItem(item);
+
+		assertEquals(11, item.getQuality());
+	}
+
+	@Test
+	public void testCheckforRequiredSpecialRulesIsTrue() {
+
+		assertTrue(gildedRose.requiredSpecialRules((new Item("Sulfuras, Hand of Ragnaros", 0, 80))));
+		assertTrue(gildedRose.requiredSpecialRules((new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20))));
+		assertTrue(gildedRose.requiredSpecialRules(new Item("Aged Brie", 2, 0)));
+
+	}
+
+	@Test
+	public void testCheckforRequiredSpecialRulesIsFalse() {
+
+		assertFalse(gildedRose.requiredSpecialRules(new Item("adasdsadas", 5, 7)));
+		assertFalse(gildedRose.requiredSpecialRules(new Item("+5 Dexterity Vest", 10, 20)));
+		assertFalse(gildedRose.requiredSpecialRules((new Item("Conjured Mana Cake", 3, 6))));
+		assertFalse(gildedRose.requiredSpecialRules(new Item("Elixir of the Mongoose", 5, 7)));
+
+	}
+
+	@Test
 	public void testDateIsPassedLowerTheBothSellInAndQualityValuesForEveryItem() {
 
 		List<Item> items = new ArrayList<Item>();
@@ -176,6 +235,7 @@ public class GildedRoseTest {
 
 	}
 
+
 	@Test
 	public void testAllDifferentItemsWithDifferntDataAtOnce() {
 
@@ -203,20 +263,6 @@ public class GildedRoseTest {
 			}
 
 		}
-
-
-
-
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testNullItemThrowNullPointerException() {
-
-		List<Item> items = new ArrayList<Item>();
-
-
-		items.add(null);
-		gildedRose.updateQuality(items);
 
 
 	}
