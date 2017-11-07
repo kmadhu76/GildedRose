@@ -1,4 +1,12 @@
-Gilded Rose
+Madhusudan Kosuru: practicing with the Guilded Rose
+
+For existing functionality there is implementation in the requirement/input in the README file below.
+As a process of implementing new ‘Conjured Items’  change/feature , I am follow below steps.
+
+⇒	As there is working functionality exist, I am writing the test cases to cover the existing functionality as mentioned in README file
+⇒	 Once all the test cases are success, then refactor the code and test cases. and make sure all test cases pass after refector
+⇒	Then implement ‘Conjured Items’  feature/changes in TDD.
+
 ===========
 
 Hi and welcome to team Gilded Rose. As you know, we are a small inn with a prime location in a prominent city ran by a friendly innkeeper named Allison. We also buy and sell only the finest goods. Unfortunately, our goods are constantly degrading in quality as they approach their sell by date. We have a system in place that updates our inventory for us. It was developed by a no-nonsense type named Leeroy, who has moved on to new adventures. Your task is to add the new feature to our system so that we can begin selling a new category of items. First an introduction to our system:
