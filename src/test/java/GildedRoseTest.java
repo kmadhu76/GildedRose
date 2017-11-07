@@ -31,10 +31,9 @@ public class GildedRoseTest {
 	@Test
 	public void testDateIsPassedLowerTheBothSellInAndQualityValuesForEveryItem() {
 
-
 		List<Item> items = new ArrayList<Item>();
 
-		//items.add(new Item("+5 Dexterity Vest", 10, 20));
+
 		items.add(new Item("+5 Dexterity Vest", 10, 20));
 
 
@@ -178,16 +177,47 @@ public class GildedRoseTest {
 	}
 
 	@Test
-	public void testAllDifferentItemsAtOnce() {
+	public void testAllDifferentItemsWithDifferntDataAtOnce() {
 
 		gildedRose.updateQuality(items);
 		for (Item item : items){
-			System.out.println(item.getName() + ":" + item.getSellIn() + ":" + item.getQuality());
+
+			if("+5 Dexterity Vest".equalsIgnoreCase(item.getName())){
+				assertEquals(9, item.getSellIn());
+				assertEquals(19, item.getQuality());
+			}else if("Aged Brie".equalsIgnoreCase(item.getName())){
+				assertEquals(1, item.getSellIn());
+				assertEquals(1, item.getQuality());
+			}else if("Elixir of the Mongoose".equalsIgnoreCase(item.getName())){
+				assertEquals(4, item.getSellIn());
+				assertEquals(6, item.getQuality());
+			}else if("ESulfuras, Hand of Ragnaros".equalsIgnoreCase(item.getName())){
+				assertEquals(0, item.getSellIn());
+				assertEquals(80, item.getQuality());
+			}else if("Backstage passes to a TAFKAL80ETC concert".equalsIgnoreCase(item.getName())){
+				assertEquals(14, item.getSellIn());
+				assertEquals(21, item.getQuality());
+			}else if("Backstage passes to a TAFKAL80ETC concert".equalsIgnoreCase(item.getName())){
+				assertEquals(2, item.getSellIn());
+				assertEquals(5, item.getQuality());
+			}
+
 		}
 
 
-		assertEquals(9, items.get(0).getSellIn());
-		assertEquals(19, items.get(0).getQuality());
+
+
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testNullItemThrowNullPointerException() {
+
+		List<Item> items = new ArrayList<Item>();
+
+
+		items.add(null);
+		gildedRose.updateQuality(items);
+
 
 	}
 
