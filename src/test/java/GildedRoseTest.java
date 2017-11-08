@@ -28,64 +28,7 @@ public class GildedRoseTest {
 	}
 
 
-	@Test
-	public void testBackstagePassesShouldIncrease3WhenSellINLessThan6() {
 
-		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10);
-
-		gildedRose.increaseTheQualityBasedOnItem(item);
-
-		assertEquals(13, item.getQuality());
-	}
-
-	@Test
-	public void testBackstagePassesShouldIncrease2WhenSellINLessThan11() {
-
-		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10);
-
-		gildedRose.increaseTheQualityBasedOnItem(item);
-
-		assertEquals(12, item.getQuality());
-	}
-
-	@Test
-	public void testBackstagePassesShouldIncrease1WhenSellInMoreThan10() {
-
-		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10);
-
-		gildedRose.increaseTheQualityBasedOnItem(item);
-
-		assertEquals(11, item.getQuality());
-	}
-
-	@Test
-	public void testAgedBrieShouldIncreaseOnly1() {
-
-		Item item = new Item("Aged Brie", 11, 10);
-
-		gildedRose.increaseTheQualityBasedOnItem(item);
-
-		assertEquals(11, item.getQuality());
-	}
-
-	@Test
-	public void testCheckforRequiredSpecialRulesIsTrue() {
-
-		assertTrue(gildedRose.requiredSpecialRules((new Item("Sulfuras, Hand of Ragnaros", 0, 80))));
-		assertTrue(gildedRose.requiredSpecialRules((new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20))));
-		assertTrue(gildedRose.requiredSpecialRules(new Item("Aged Brie", 2, 0)));
-
-	}
-
-	@Test
-	public void testCheckforRequiredSpecialRulesIsFalse() {
-
-		assertFalse(gildedRose.requiredSpecialRules(new Item("adasdsadas", 5, 7)));
-		assertFalse(gildedRose.requiredSpecialRules(new Item("+5 Dexterity Vest", 10, 20)));
-		assertFalse(gildedRose.requiredSpecialRules((new Item("Conjured Mana Cake", 3, 6))));
-		assertFalse(gildedRose.requiredSpecialRules(new Item("Elixir of the Mongoose", 5, 7)));
-
-	}
 
 	@Test
 	public void testDateIsPassedLowerTheBothSellInAndQualityValuesForEveryItem() {
@@ -230,11 +173,111 @@ public class GildedRoseTest {
 
 		gildedRose.updateQuality(items);
 
-		//assertEquals(-1, items.get(0).getSellIn());
 		assertEquals(0, items.get(0).getQuality());
 
 	}
 
+
+	@Test
+	public void testConjuredDegradesQualityTwiceThanNormalItems(){
+
+
+		List<Item> items = new ArrayList<Item>();
+
+
+		items.add(new Item("Conjured Mana Cake", 3, 6));
+
+
+		gildedRose.updateQuality(items);
+
+		assertEquals(2, items.get(0).getSellIn());
+		assertEquals(4, items.get(0).getQuality());
+
+
+	}
+
+	@Test
+	public void testBackstagePassesShouldIncrease3WhenSellINLessThan6() {
+
+		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10);
+
+		gildedRose.increaseTheQualityBasedOnItem(item);
+
+		assertEquals(13, item.getQuality());
+	}
+
+	@Test
+	public void testBackstagePassesShouldIncrease2WhenSellINLessThan11() {
+
+		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10);
+
+		gildedRose.increaseTheQualityBasedOnItem(item);
+
+		assertEquals(12, item.getQuality());
+	}
+
+	@Test
+	public void testBackstagePassesShouldIncrease1WhenSellInMoreThan10() {
+
+		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10);
+
+		gildedRose.increaseTheQualityBasedOnItem(item);
+
+		assertEquals(11, item.getQuality());
+	}
+
+	@Test
+	public void testAgedBrieShouldIncreaseOnly1() {
+
+		Item item = new Item("Aged Brie", 11, 10);
+
+		gildedRose.increaseTheQualityBasedOnItem(item);
+
+		assertEquals(11, item.getQuality());
+	}
+
+	@Test
+	public void testDecreaseNormalItemsQualitylowerByOne() {
+
+		Item item = new Item("+5 Dexterity Vest", 10, 20);
+		gildedRose.decreaseTheQualityBasedOnItem(item);
+		assertEquals(19, item.getQuality());
+
+		item = new Item("Elixir of the Mongoose", 5, 7);
+		gildedRose.decreaseTheQualityBasedOnItem(item);
+		assertEquals(6, item.getQuality());
+	}
+
+	@Test
+	public void testDecreaseConjuredItemsQuaityTwiceThanNormalItems() {
+
+		Item item = new Item("Conjured Mana Cake", 10, 15);
+		gildedRose.decreaseTheQualityBasedOnItem(item);
+		assertEquals(13, item.getQuality());
+
+		item = new Item("Conjured Mana Cake", 5, 7);
+		gildedRose.decreaseTheQualityBasedOnItem(item);
+		assertEquals(5, item.getQuality());
+	}
+
+	@Test
+	public void testCheckforRequiredSpecialRulesIsTrue() {
+
+		assertTrue(gildedRose.requiredSpecialRules((new Item("Sulfuras, Hand of Ragnaros", 0, 80))));
+		assertTrue(gildedRose.requiredSpecialRules((new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20))));
+		assertTrue(gildedRose.requiredSpecialRules(new Item("Aged Brie", 2, 0)));
+
+	}
+
+	@Test
+	public void testCheckforRequiredSpecialRulesIsFalse() {
+
+		assertFalse(gildedRose.requiredSpecialRules(new Item("adasdsadas", 5, 7)));
+		assertFalse(gildedRose.requiredSpecialRules(new Item("+5 Dexterity Vest", 10, 20)));
+		assertFalse(gildedRose.requiredSpecialRules((new Item("Conjured Mana Cake", 3, 6))));
+		assertFalse(gildedRose.requiredSpecialRules(new Item("Elixir of the Mongoose", 5, 7)));
+
+	}
 
 	@Test
 	public void testAllDifferentItemsWithDifferntDataAtOnce() {

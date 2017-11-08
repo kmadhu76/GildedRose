@@ -5,6 +5,7 @@ import java.util.List;
 public class GildedRose {
 
 
+
     /**
      * @param args
      */
@@ -20,31 +21,32 @@ public class GildedRose {
         items.add(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
         items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20));
         items.add(new Item("Conjured Mana Cake", 3, 6));
-        try {
+
             gildedRose.updateQuality(items);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+
     }
 
 
-
+    /**
+     * end of the day system  update lowers both values for every item
+     * @param items
+     */
     public void updateQuality(List<Item> items)
     {
         for (Item item : items)
         {
             if(item != null) {
-                if (!requiredSpecialRules(item)) {
-                    if (item.getQuality() > 0) {
-                        item.setQuality(item.getQuality() - 1);
-                    }
 
-                }
                 if (!"Sulfuras, Hand of Ragnaros".equals(item.getName())) {
                     item.setSellIn(item.getSellIn() - 1);
 
                 }
-                increaseTheQualityBasedOnItem(item);
+                if (requiredSpecialRules(item)) {
+                    increaseTheQualityBasedOnItem(item);
+                 }else{
+                    decreaseTheQualityBasedOnItem(item);
+                }
+
 
                 if (item.getSellIn() < 0 && "Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
                     item.setQuality(item.getQuality() - item.getQuality());
@@ -55,6 +57,11 @@ public class GildedRose {
 
     }
 
+    /**
+     * Aged Brie ,Backstage passes and Sulfuras has additional rules defined
+     * @param item
+     * @return boolean
+     */
     public boolean requiredSpecialRules(Item item){
         if (("Aged Brie".equals(item.getName()))
                 || "Backstage passes to a TAFKAL80ETC concert".equals(item.getName())
@@ -66,6 +73,27 @@ public class GildedRose {
 
     }
 
+    /**
+     *  decrease the quality for normal items
+     * and  decrease twice for Conjured items when compaare normal items
+     * @param item
+     */
+    public void decreaseTheQualityBasedOnItem(Item item){
+
+        if (item.getQuality() > 0) {
+            item.setQuality(item.getQuality() - 1);
+
+            if ( "Conjured Mana Cake".equals(item.getName())) {
+                item.setQuality(item.getQuality() - 1);
+            }
+        }
+
+    }
+
+    /**
+     * increase the quality for Backstage passes and Aged Brie
+     * @param item
+     */
     public void increaseTheQualityBasedOnItem(Item item){
 
         boolean  increasQuality = false;
